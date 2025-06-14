@@ -23,7 +23,7 @@ mv wp-cli.phar /usr/local/bin/wp
 # downloads the latest version of WordPress to the current directory. The --allow-root flag allows the command to be run as the root user, which is necessary if you are logged in as the root user or if you are using WP-CLI with a system-level installation of WordPress.
 wp core download --allow-root
 
-mv /var/www/html/wp-config-sample.php /var/www/html/wp-config.php
+mv /wp-config.php /var/www/html/wp-config.php
 
 # change the those lines in wp-config.php file to connect with database
 
@@ -39,7 +39,7 @@ sed -i -r "s/localhost:3030/mariadb/1"    wp-config.php
 #(to connect with mariadb database)
 
 # installs WordPress and sets up the basic configuration for the site. The --url option specifies the URL of the site, --title sets the site's title, --admin_user and --admin_password set the username and password for the site's administrator account, and --admin_email sets the email address for the administrator. The --skip-email flag prevents WP-CLI from sending an email to the administrator with the login details.
-wp core install --url=$DOMAIN_NAME/ --title=$WP_TITLE --admin_user=$WP_ADMIN_US--admin_password=$WP_ADMIN_PWD --admin_email=$WP_EMAIL --skip-email --allow-root
+wp core install --url=$DOMAIN_NAME/ --title=$WP_TITLE --admin_user=$WP_ADMIN_US --admin_password=$WP_ADMIN_PWD --admin_email=$WP_EMAIL --skip-email --allow-root
 
 # creates a new user account with the specified username, email address, and password. The --role option sets the user's role to author, which gives the user the ability to publish and manage their own posts.
 wp user create $WP_USR $WP_EMAIL --role=author --user_pass=$WP_PWD --allow-root
@@ -58,7 +58,7 @@ sed -i 's/listen = \/run\/php\/php7.3-fpm.sock/listen = 9000/g' /etc/php/7.3/fpm
 mkdir /run/php
 
 
-wp redis enable --allow-root
+#wp redis enable --allow-root
 
 
 # starts the PHP-FPM service in the foreground. The -F flag tells PHP-FPM to run in the foreground, rather than as a daemon in the background.

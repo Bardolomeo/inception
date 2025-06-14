@@ -5,13 +5,24 @@ volume?=wordpress
 image?=wordpress
 
 
+
+NAME=inception	
+var="$(head /etc/hosts -n 1) gsapio.42.it"
+
+
 fupd:
 	cd srcs ; sudo docker compose up --build -d ; cd ..
 
-fup:
+all: $(NAME)
+
+$(NAME):
 	cd srcs ; sudo docker compose up --build ; cd ..
 
-fre:	fdown fup
+fup: $(NAME)
+
+re:	down fup
+
+fre:	fdown rm-vol-all prune fup 
 
 down:
 	cd srcs ; sudo docker compose down ; cd ..
@@ -34,3 +45,6 @@ conshell:
 
 prune:
 	sudo docker system prune --volumes
+
+host:
+	sudo bash -c "echo 127.0.0.1 localhost gsapio.42.it >> /etc/hosts; exit"
